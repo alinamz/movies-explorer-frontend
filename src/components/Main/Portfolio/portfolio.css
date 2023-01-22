@@ -1,0 +1,123 @@
+.portfolio {
+    background-color: #202020;
+    width: calc(100% - 140px);
+    margin: auto;
+    height: 405px;
+}
+
+@media screen and (max-width: 768px) {
+    .portfolio {
+        width: calc(100% - 100px);
+    }
+}
+
+@media screen and (max-width:320px) {
+    .portfolio {
+        width: calc(100% - 36px);
+    }
+}
+
+.portfolio__element-link {
+    color: #FFFFFF;
+    height: 60px;
+    width: 29px;
+    border-radius: nullpx;
+    background-image: url(../../../images/element-link.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.portfolio__element-link:hover {
+    opacity: 0.5;
+}
+
+.portfolio__element-link:active {
+    opacity: 0.5;
+}
+
+@media screen and (max-width: 768px) {
+    .portfolio__element-link {
+        width: 27px;
+    }
+}
+
+.portfolio__nav {
+    margin: 0;
+    padding: 0;
+}
+
+.potrfolio__title {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    color: #8B8B8B;
+    margin-top: 0;
+    margin-bottom: 50px;
+}
+
+@media screen and (max-width:320px) {
+    .potrfolio__title {
+        margin-bottom: 40px;
+        font-size: 14px;
+    }
+}
+
+.potfolio__element {
+    padding-bottom: 21px;
+    border-bottom: 1px solid #424242;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.potfolio__element:last-of-type {
+    margin-bottom: 125px;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .potfolio__element {
+        padding-bottom: 19px;
+        margin-bottom: 20px;
+        height: 50px;
+    }
+
+    .potfolio__element:last-of-type {
+        margin-bottom: 90px;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .potfolio__element {
+        height: 28px;
+    }
+
+    .potfolio__element:last-of-type {
+        margin-bottom: 70px;
+    }
+}
+
+.potfolio__element-subtitle {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 50px;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .potfolio__element-subtitle {
+        font-size: 28px;
+        letter-spacing: -0.04em;
+    }
+}
+
+@media screen and (max-width:420px) {
+    .potfolio__element-subtitle {
+        font-size: 18px;
+        line-height: 28px;
+    }
+}

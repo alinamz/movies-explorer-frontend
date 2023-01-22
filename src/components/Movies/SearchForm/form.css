@@ -1,0 +1,114 @@
+.form {
+    background-color: #202020;
+    width: calc(100% - 140px);
+    margin: auto;
+}
+
+@media screen and (max-width: 768px) {
+    .form {
+        width: calc(100% - 60px);
+        padding-bottom: 46px;
+        border-bottom: 1px solid rgba(170, 170, 170, 0.2);
+        margin-bottom: 19px;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .form {
+        width: calc(100% - 28px);
+        padding-bottom: 57px;
+        margin-bottom: 8px;
+    }
+}
+
+.form__button {
+    height: 52px;
+    width: 100px;
+    border-radius: 5px;
+    background-color: #4285F4;
+    margin-right: 10px;
+    padding: 0;
+    border: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #FFFFFF;
+}
+
+.form__button:hover{
+    opacity: 0.5;
+}
+
+.form__button:active{
+    opacity: 0.5;
+}
+
+@media screen and (max-width:320px) {
+    .form__button {
+        height: 44px;
+        width: 80px;
+    }
+}
+
+.form__input {
+    margin: 0;
+    background-color: #202020;
+    border: none;
+    width: 88%;
+    height: 60px;
+    outline: none;
+    margin-left: 25px;
+    font-family: Inter;
+    font-size: 18px;
+    padding: 0;
+    font-weight: 400;
+    line-height: 20px;
+    color: #FFFFFF;
+}
+
+@media screen and (max-width: 768px) {
+    .form__input {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .form__input {
+        height: 55px;
+        margin-left: 12px;
+        font-family: Inter;
+        font-size: 16px;
+        line-height: 16px;
+        width: 65%;
+    }
+}
+
+.form__search {
+    height: 72px;
+    width: 100%;
+    border: 1.5px solid rgba(170, 170, 170, 0.2);
+    border-radius: 8px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 88px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form__search_movies {
+    margin-top: 145px;
+}
+
+@media screen and (max-width: 768px) {
+    .form__search {
+        margin-top: 88px;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .form__search {
+        height: 56px;
+    }
+}
