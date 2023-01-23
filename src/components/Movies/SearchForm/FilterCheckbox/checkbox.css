@@ -1,21 +1,21 @@
-.checkbox input {
+.checkbox-filter__label input {
     display: none;
 }
 
-.checkbox {
+.checkbox-filter__label {
     width: 36px;
 }
 
-.checkbox input:checked~span:after {
+.checkbox-filter__label input:checked~span:after {
     right: 19px;
 }
 
-.checkbox input:checked~span {
+.checkbox-filter__label input:checked~span {
     background-color: #E5E5E5;
     ;
 }
 
-.checkbox input~span:after {
+.checkbox-filter__label input~span:after {
     content: '';
     display: block;
     height: 16px;
@@ -28,7 +28,7 @@
     transition: all 0.3s;
 }
 
-.checkbox input~span {
+.checkbox-filter__label input~span {
     display: inline-block;
     width: 100%;
     height: 20px;

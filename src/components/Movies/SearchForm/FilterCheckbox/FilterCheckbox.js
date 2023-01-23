@@ -6,7 +6,7 @@ function FilterCheckbox () {
     const isBorder = `checkbox-filter ${isMargin ? "checkbox-filter_movie" : ""}`
     return(
         <div className={isBorder}>
-            <label className='checkbox'>
+            <label className='checkbox-filter__label'>
             <input  type='checkbox' />
             <span></span>
             </label>
