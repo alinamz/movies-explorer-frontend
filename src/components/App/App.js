@@ -1,6 +1,5 @@
-import logo from '../../logo.svg';
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { CurrentContext } from "../../context/CurrentContext.js";
 import './App.css';
 import Header from '../Header/Header.js';
@@ -27,55 +26,56 @@ function App() {
 
   const [isCardButton, setIsCardButton] = React.useState(true);
 
-   function OpenMenu() {
+  function OpenMenu() {
     setDisplayNav(!displayNav);
     setBurgerMenu(!burgerMenu)
-   }
+  }
 
   return (
-    <CurrentContext.Provider value={currentUser}>
-    <div className="background">
-      <div className='page'>
-      <Header displayNav={displayNav} onClick={OpenMenu} burgerMenu={burgerMenu} isLoged={isLoged} />
+    <BrowserRouter>
+      <CurrentContext.Provider value={currentUser}>
+        <div className="background">
+          <div className='page'>
+            <Header displayNav={displayNav} onClick={OpenMenu} burgerMenu={burgerMenu} isLoged={isLoged} />
+            <Switch>
+              <Route exact path="/">
+                <Main setIsLoged={setIsLoged} isLoged={isLoged} />
+                <Footer />
+              </Route>
 
-      <Switch>
+              <Route path="/movies">
+                <Movies isCardButton={isCardButton} setIsCardButton={setIsCardButton} movies={AllMovies} />
+                <Footer />
+              </Route>
 
-      <Route exact path="/">
-        <Main setIsLoged={setIsLoged} isLoged={isLoged}/>
-        <Footer />
-      </Route>
+              <Route path='/saved-movies'>
+                <SavedMovies movies={SaveMovies} />
+                <Footer />
+              </Route>
 
-       <Route path="/movies">
-        <Movies isCardButton={isCardButton} setIsCardButton={setIsCardButton} movies={AllMovies}/>
-        <Footer />
-      </Route>
+              <Route path='/profile'>
+                <Profile />
+              </Route>
 
-       <Route path='/saved-movies'>
-        <SavedMovies movies={SaveMovies}/>
-        <Footer />
-      </Route>
+              <Route path='/signup'>
+                <Register setIsLoged={setIsLoged} setSpanName={setSpanName} isSpanName={isSpanName} setSpanEmail={setSpanEmail} isSpanEmail={isSpanEmail} isSpanPassword={isSpanPassword} setSpanPassword={setSpanPassword} />
+              </Route>
 
-       <Route path='/profile'>
-        <Profile />
-      </Route>
+              <Route path='/signin'>
+                <Login setIsLoged={setIsLoged} />
+              </Route>
 
-       <Route path='/signup'>
-        <Register setIsLoged={setIsLoged} setSpanName={setSpanName} isSpanName={isSpanName} setSpanEmail={setSpanEmail} isSpanEmail={isSpanEmail} isSpanPassword={isSpanPassword} setSpanPassword={setSpanPassword}/>
-      </Route>
+              <Route path='/404'>
+                <NotFound />
+              </Route>
 
-      <Route path='/signin'>
-        <Login setIsLoged={setIsLoged}/>
-      </Route>  
+            </Switch>
 
-      <Route path='/404'>
-        <NotFound />
-      </Route>
+          </div>
+        </div>
+      </CurrentContext.Provider>
+    </BrowserRouter>
 
-      </Switch>
-
-      </div>
-    </div>
-    </CurrentContext.Provider>
   );
 }
 

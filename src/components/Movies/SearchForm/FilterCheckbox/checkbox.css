@@ -64,6 +64,20 @@
     flex-direction: row;
 }
 
+.checkbox-filter_movie {
+    margin-bottom: 10px;
+    padding-bottom: 43px;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.2)
+}
+
+@media screen and (max-width:768px) {
+.checkbox-filter_movie{
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+}
+
 @media screen and (max-width:320px) {
     .checkbox-filter {
         margin-top: 30px;

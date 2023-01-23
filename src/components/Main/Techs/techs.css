@@ -51,6 +51,7 @@
 @media screen and (max-width: 768px) {
     .techs__list {
         margin-top: 83px;
+        margin-bottom: 90px;
     }
 }
 

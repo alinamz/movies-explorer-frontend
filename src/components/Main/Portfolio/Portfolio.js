@@ -1,27 +1,31 @@
-import { Link } from "react-router-dom";
-
 function Portfolio() {
- return( 
-    <section className='portfolio'>
-    <h2 className="potrfolio__title">Портфолио</h2>
-    <ul className="portfolio__nav">
-        <li className="potfolio__element">
-            <p className="potfolio__element-subtitle">Статичный сайт</p>
-            <a className="portfolio__element-link" href="https://github.com/alinamz/how-to-learn" target='_blank'></a>
-        </li>
+    return (
+        <section className='portfolio'>
+            <h2 className="portfolio__title">Портфолио</h2>
+            <ul className="portfolio__nav">
+                <li className="portfolio__element">
+                    <a className='portfolio__element-links'  rel='noreferrer' href="https://github.com/alinamz/how-to-learn" target='_blank'>
+                        <p className="portfolio__element-subtitle">Статичный сайт</p>
+                        <div className="portfolio__element-link"></div>
+                    </a>
+                </li>
 
-        <li className="potfolio__element">
-            <p className="potfolio__element-subtitle">Адаптивный сайт</p>
-            <a className='portfolio__element-link' href="https://github.com/alinamz/russian-travel"  target='_blank'></a>
-        </li>
+                <li className="portfolio__element">
+                    <a className='portfolio__element-links' rel='noreferrer' href="https://github.com/alinamz/russian-travel" target='_blank'>
+                        <p className="portfolio__element-subtitle">Адаптивный сайт</p>
+                        <div className='portfolio__element-link'></div>
+                    </a>
+                </li>
 
-        <li className="potfolio__element">
-            <p className="potfolio__element-subtitle">Одностраничное приложение</p>
-            <a className='portfolio__element-link' href='https://github.com/alinamz/react-mesto-auth'  target='_blank'></a>
-        </li>
-    </ul>
-    </section>
- )
+                <li className="portfolio__element">
+                    <a className='portfolio__element-links' rel='noreferrer' href="https://github.com/alinamz/mesto-react" target='_blank'>
+                        <p className="portfolio__element-subtitle">Одностраничное приложение</p>
+                        <div className='portfolio__element-link'></div>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    )
 }
 
 export default Portfolio

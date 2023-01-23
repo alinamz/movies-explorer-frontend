@@ -156,20 +156,20 @@
     text-align: center;
     width: 204px;
     color: #FFFFFF;
-    margin-top: 92px;
+    margin-top: 74px;
     margin-bottom: 123px;
 }
 
 @media screen and (max-width:768px) {
     .profile__title {
-        margin-top: 254px;
+        margin-top: 236px;
         margin-bottom: 96px;
     }
 }
 
 @media screen and (max-width:320px) {
     .profile__title {
-        margin-top: 88px;
+        margin-top: 70px;
         margin-bottom: 80px;
     }
 }

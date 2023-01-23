@@ -60,6 +60,12 @@
         grid-row-gap: 20px;
         grid-column-gap: 0;
         grid-template-columns: repeat(1, 300px);
+        
+    }
+}
+
+@media screen and (max-width:368px) {
+    .elements__movies{
         grid-auto-rows: 235px;
     }
 }

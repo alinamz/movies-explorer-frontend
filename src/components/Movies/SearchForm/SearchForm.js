@@ -8,8 +8,8 @@ function SearchForm() {
     return (
         <form className="form">
             <div className={isForm}>
-            <input className="form__input"  placeholder="Фильм"/>
-            <button className="form__button">Поиск</button>
+            <input className="form__input" name='movie' placeholder="Фильм" required/>
+            <button className="form__button" type='submit'>Поиск</button>
             </div>
             <FilterCheckbox></FilterCheckbox>
         </form>
