@@ -35,11 +35,19 @@
     }
 }
 
+@media screen and (max-width:320px) {
+    .portfolio__element-link {
+        height: 28px;
+        width: 18px;
+    }
+}
+
 .portfolio__nav {
     margin: 0;
     padding: 0;
     display: grid;
-    row-gap: 20px;;
+    row-gap: 20px;
+    ;
     list-style: none;
 }
 
@@ -60,7 +68,7 @@
     }
 }
 
-.portfolio__element-links{
+.portfolio__element-links {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -70,7 +78,7 @@
 }
 
 @media screen and (max-width:320px) {
-    .portfolio__element-links{
+    .portfolio__element-links {
         height: 28px;
     }
 }

@@ -99,8 +99,11 @@
     margin-top: 124px;
 }
 
+
+@media screen and (max-width: 768px) {
 .form__search_movies{
     margin-top: 70px;
+}
 }
 
 @media screen and (max-width:320px) {
