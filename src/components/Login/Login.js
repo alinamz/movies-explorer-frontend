@@ -10,7 +10,7 @@ function Login({setIsLoged}) {
     handleLogged()
   })
     return(
-        <div className="login__area">
+        <div className="login">
             <h1 className='login__title'>Рады видеть!</h1>
 
             <form className="login__form">

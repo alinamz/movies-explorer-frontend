@@ -9,7 +9,7 @@ function MoviesCard ({movie}) {
              <img className="element__image" src={movie.link} alt={movie.name} />
              <div className="element__info">
                 <h2 className="element__name">{movie.name}</h2>
-                <h3 className="elenemt__time">{movie.time}</h3>
+                <h3 className="element__time">{movie.time}</h3>
                 {MovieButton ? (<label className="element__button">
                 <input type='checkbox' />
                 <span></span>

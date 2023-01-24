@@ -7,9 +7,9 @@ function Register({ setIsLoged, setSpanEmail, setSpanName, setSpanPassword, isSp
     const spanActiveEmail = `${isSpanEmail ? "register__span-error-disabled" : "register__span-error"}`;
     const spanActivePassword = `${isSpanPassword ? "register__span-error-disabled" : "register__span-error"}`;
 
-    const errorMessageName = `register__input register__input__name ${isSpanName ? " " : "register__input_active"}`;
-    const errorMessageEmail = `register__input register__input__email ${isSpanEmail ? "" : "register__input_active"}`;
-    const errorMessagePassword = `register__input register__input__password ${isSpanPassword ? " " : "register__input_active"}`;
+    const errorMessageName = `register__input register__input_name ${isSpanName ? " " : "register__input_active"}`;
+    const errorMessageEmail = `register__input register__input_email ${isSpanEmail ? "" : "register__input_active"}`;
+    const errorMessagePassword = `register__input register__input_password ${isSpanPassword ? " " : "register__input_active"}`;
 
     function handleChangeName() {
         setSpanName(true)
@@ -43,7 +43,7 @@ function Register({ setIsLoged, setSpanEmail, setSpanName, setSpanPassword, isSp
     }, [isSpanEmail, isSpanName, isSpanPassword])
 
     return (
-        <div className="register__area">
+        <div className="register">
 
             <h2 className="register__titile">Добро пожаловать!</h2>
             <form className="register__form" >

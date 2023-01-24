@@ -36,7 +36,7 @@ padding: 0;
 margin: 0;
 }
 
-.errors__exit {
+.error__exit {
     font-family: Inter;
 font-size: 14px;
 font-weight: 400;
@@ -63,7 +63,7 @@ font-size: 12px;
 line-height: 15px;
     }
 
-    .errors__exit{
+    .error__exit{
         margin-top: 284px;
 font-size: 12px;
 line-height: 15px;

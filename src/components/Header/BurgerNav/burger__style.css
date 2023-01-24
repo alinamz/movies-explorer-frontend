@@ -1,4 +1,4 @@
-.burger__style {
+.header__burger-style {
     width: 44px;
     height: 44px;
     position: absolute;
@@ -13,29 +13,29 @@
 }
 
 @media (max-width: 768px) {
-    .burger__style {
+    .header__burger-style {
         display: flex;
         justify-content: space-around;
         flex-flow: column nowrap;
     }
 
-    .burger__style_active {
+    .header__burger-style_active {
         background-image: url(../../../images/close.svg);
     }
 
-    .burger__style_disabled {
+    .header__burger-style_disabled {
         background-image: url(../../../images/iconBurger.svg);
     }
 }
 
 @media screen and (max-width:320px) {
-    .burger__style_active {
+    .header__burger-style_active {
         top: 13px;
         right: 13px;
         background-position-x: right;
     }
 
-    .burger__style_disabled {
+    .header__burger-style_disabled {
         width: 40px;
         background-size: contain;
         height: 42px;

@@ -1,4 +1,4 @@
-.add__movies {
+.add-movie {
     height: 166px;
     flex-direction: row;
     display: flex;
@@ -7,7 +7,7 @@
     margin: auto;
 }
 
-.add__button {
+.add-movie__button {
     height: 36px;
     width: 320px;
     border-radius: 6px;
@@ -25,12 +25,12 @@
 }
 
 @media screen and (max-width:320px) {
-    .add__button {
+    .add-movie__button {
         width: 240px;
     }
 }
 
-.saved__btn {
+.save-movie {
     height: 140px;
     background-color: #202020;
 

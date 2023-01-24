@@ -6,7 +6,7 @@ function SavedMovies ({movies}) {
         <div>
         <SearchForm />
         <MoviesCardList movies={movies} />
-        <div className="saved__btn"></div>
+        <div className="save-movie"></div>
         </div>
     )
 }

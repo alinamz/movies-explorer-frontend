@@ -6,7 +6,7 @@ function NotFound() {
             <h2 className="error__number">404</h2>
             <p className="error__text">Страница не найдена</p>
 
-            <Link className="errors__exit">Назад</Link>
+            <Link className="error__exit">Назад</Link>
         </div>
     )
 }

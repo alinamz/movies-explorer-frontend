@@ -6,8 +6,8 @@ function Movies({isCardButton, setIsCardButton, movies}) {
         <main>
             <SearchForm />
             <MoviesCardList isCardButton={isCardButton} setIsCardButton={setIsCardButton} movies={movies}/>
-            <div className='add__movies'>
-                <button className='add__button'>Ещё</button>
+            <div className='add-movie'>
+                <button className='add-movie__button'>Ещё</button>
             </div>
         </main>
     )

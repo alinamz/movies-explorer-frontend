@@ -1,4 +1,4 @@
-.profile__area {
+.profile {
     width: calc(100% - 140px);
     height: 100%;
     margin: auto;
@@ -9,13 +9,13 @@
 }
 
 @media screen and (max-width:768px) {
-    .profile__area {
+    .profile {
         min-height: 950px;
     }
 }
 
 @media screen and (max-width:320px) {
-    .profile__area {
+    .profile {
         min-height: 706px;
     }
 }
