@@ -1,0 +1,100 @@
+.element {
+    left: 70px;
+    top: 70px;
+    border-radius: 10px;
+    border-color: #222222;
+    list-style-type: none;
+    background-color: #222222;
+}
+
+.element__button input {
+    display: none;
+}
+
+.element__button input:checked~span {
+    background-color: #2BE080;
+}
+
+.element__button input~span {
+    display: inline-block;
+    position: absolute;
+    top: 14px;
+    right: 12px;
+    height: 12px;
+    width: 12px;
+    border-style: solid;
+    border-color: #FFFFFF;
+    border-radius: 50%;
+    background-color: #313131;
+}
+
+.element__delete {
+    background-image: url(../../../images/delete.svg);
+    height: 16px;
+    width: 16px;
+    background-color: #222222;
+    position: absolute;
+    top: 14px;
+    right: 12px;
+    border: none;
+}
+
+.element__delete:hover{
+    opacity: 0.5;
+}
+
+.element__delete:active{
+    opacity: 0.5;
+}
+
+.element__image {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    object-fit: cover;
+    height: 151px;
+    min-width: 270px;
+}
+
+@media screen and (max-width: 768px) {
+    .element__image {
+        min-width: 339px;
+        height: 190px;
+    }
+}
+
+@media screen and (max-width: 369px) {
+    .element__image {
+        min-width: 300px;
+        height: 168px;
+    }
+}
+
+.element__info {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: relative;
+}
+
+.element__name {
+    height: 16px;
+    width: 206px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #FFFFFF;
+    margin-left: 12px;
+    padding-top: 14px;
+}
+
+.element__time {
+    height: 13px;
+    width: 34px;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+    color: #8B8B8B;
+    margin: 0 0 0 12px;
+}

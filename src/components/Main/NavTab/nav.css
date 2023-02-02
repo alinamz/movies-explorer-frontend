@@ -1,0 +1,45 @@
+.nav {
+    height: 66px;
+    background-color: #272727;
+}
+
+.nav__element {
+    margin: 0;
+    padding: 0;
+}
+
+.nav__elements {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 24px;
+    gap: 40px;
+}
+
+@media screen and (max-width:320px) {
+    .nav__elements {
+        gap: 24px;
+    }
+}
+
+.nav__link {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #FFFFFF;
+}
+
+.nav__link:hover{
+    opacity: 0.5;
+}
+
+.nav__link:active{
+    opacity: 0.5;
+}
+
+@media screen and (max-width:320px) {
+    .nav__link {
+        font-size: 11px;
+    }
+}
