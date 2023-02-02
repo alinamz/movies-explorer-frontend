@@ -23,3 +23,4 @@
 @import url(../src/components/NotFound/NotFound.css);
 @import url(./components/Register/register.css);
 @import url(./components/Header/BurgerNav/burger__style.css);
+@import url(../src/components/Preloader/preloader.css);

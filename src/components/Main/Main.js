@@ -6,14 +6,7 @@ import Techs from './Techs/Techs.js';
 import AboutMe from "./AboutMe/AboutMe.js";
 import Portfolio from "./Portfolio/Portfolio.js";
 
-function Main({setIsLoged}) {
-    function handleLogged() {
-        setIsLoged(false)
-    }
-
-  React.useEffect(() => {
-    handleLogged()
-  })
+function Main() {
 
     return(
         <main className="main">
