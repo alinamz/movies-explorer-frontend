@@ -16,13 +16,13 @@ function SearchForm({
     const isForm = `form__search ${isMargin ? "form__search_movies" : ""}`;
     const [isSpan, setIsSpan] = React.useState(false);
 
-    const [valueInput, setValue] = React.useState(()=>JSON.parse(localStorage.getItem('value')|| ''))
+    const [valueInput, setValue] = React.useState(isInputData)
 
     const inputRef = useRef(null);
 
 
     React.useEffect(() => {
-        localStorage.setItem('value', JSON.stringify(valueInput))
+        JSON.parse(localStorage.getItem('value'))
     }, [valueInput])
 
     function onClick(e) {
