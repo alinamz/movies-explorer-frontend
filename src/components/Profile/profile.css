@@ -20,6 +20,18 @@
     }
 }
 
+.profile__result-active{
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #EE3465;
+    text-align: center;
+}
+
+.profile__result-disabled {
+    display: none;
+}
+
 .profile__doing {
     display: flex;
     flex-direction: column;

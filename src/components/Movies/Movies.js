@@ -1,6 +1,8 @@
 import MoviesCardList from './MoviesCardList/MoviesCardList.js';
 import SearchForm from './SearchForm/SearchForm.js';
 import React from 'react';
+import ApiMovies from '../../utils/MoviesApi.js';
+import { useState } from 'react';
 
 function Movies({
     setInputData,
@@ -11,29 +13,39 @@ function Movies({
     isInputData,
     saveMovie,
     handleDeleteSaveMovie,
-    movies,
-    isLoading,
     handleAddSaveMovie }) {
 
     const [addMovie, setAddMovie] = React.useState(12);
     const [isButton, setIsButton] = React.useState(false)
     const width = window.innerWidth;
 
-    const [isSearchMovie, setIsSearchMovie] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(false);
 
-    
+    const [changeInput, setChangeInput] = React.useState(false)
+
+    const [isSearchMovie, setIsSearchMovie] = React.useState(localStorage.getItem('filter') ?  JSON.parse(localStorage.getItem('filter')) : []);
+    const [movies, setMovies] = React.useState([]);
+
     function filterMovies(searchString, movies) {
-        if(searchString !== 0) {
-        searchString = searchString?.toLowerCase();
-        let filteredMovies = movies?.filter(movie =>
-            movie.nameRU.toLowerCase().includes(searchString) ||
-            movie.nameEN.toLowerCase().includes(searchString) ||
-            movie.country.toLowerCase().includes(searchString) ||
-            movie.description.toLowerCase().includes(searchString) ||
-            movie.director.toLowerCase().includes(searchString));
-           
-        setIsSearchMovie(filteredMovies);
-        }
+        if(changeInput)
+        ApiMovies.getMovies().then((movies) => {
+           setIsLoading(true)
+            setMovies(movies)
+                searchString = searchString?.toLowerCase();
+                let filteredMovies = movies?.filter(movie =>
+                    movie.nameRU.toLowerCase().includes(searchString) ||
+                    movie.nameEN.toLowerCase().includes(searchString) ||
+                    movie.country.toLowerCase().includes(searchString) ||
+                    movie.description.toLowerCase().includes(searchString) ||
+                    movie.director.toLowerCase().includes(searchString));
+                setIsSearchMovie(filteredMovies);
+                localStorage.setItem('filter', JSON.stringify(filteredMovies))
+            
+        })
+        .catch(() => console.log('Что-то пошло не так!'))
+        .finally(() => {
+            setIsLoading(false)
+        })
     }
 
     function showNewMovies() {
@@ -58,40 +70,34 @@ function Movies({
     }
 
     React.useEffect(() => {
-        if(isShort === false) {
-            if (isSearchMovie.length > addMovie) 
-            { setIsButton(true); 
+        if (isShort === false) {
+            if (isSearchMovie.length > addMovie) {
+                setIsButton(true);
             } else { setIsButton(false) }
         } else {
-            if (shortFilms.length > addMovie) 
-            { setIsButton(true); 
+            if (shortFilms.length > addMovie) {
+                setIsButton(true);
             } else { setIsButton(false) }
-            }
+        }
     }, [width, isSearchMovie, isShort]);
 
 
     React.useEffect(() => {
-        JSON.parse(localStorage.getItem('filter'))
-    }, [isSearchMovie])
-    
-    React.useEffect(() => {
         filterMovies(isInputData, movies)
         handleCheckboxActive(shortFilms)
-    }, [isInputData, isShort])
-
-    React.useEffect(() => {
-       localStorage.setItem('filter', JSON.stringify([isSearchMovie, isShort]))
-    },[isSearchMovie])
+    }, [isInputData, isShort, changeInput])
 
     return (
         <main>
             <SearchForm
-                isInputData={isInputData}
+               setChangeInput={setChangeInput}
                 setInputData={setInputData}
+                isInputData={isInputData}
                 isShort={isShort}
                 setIsShort={setIsShort}
                 movies={isSearchMovie}
-                handleCheckboxActive={handleCheckboxActive} />
+                handleCheckboxActive={handleCheckboxActive}
+                setIsLoading={setIsLoading} />
             <MoviesCardList
                 isShort={isShort}
                 shortFilms={shortFilms}

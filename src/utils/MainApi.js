@@ -91,7 +91,7 @@ class MainApi {
 }
 
 const ApiMain = new MainApi ({
-    baseUrl: 'https://api.diploma.movies.nomoredomains.club',
+  baseUrl: 'https://api.diploma.movies.nomoredomains.club',
     headers: {
         "content-type": "application/json",
         "Authorization": "",

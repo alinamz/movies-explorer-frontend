@@ -3,17 +3,19 @@ import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList.js"
 import React from "react";
 
 function SavedMovies({
-    setInputData,
     shortFilms,
     handleCheckboxActive,
     setSaveMovie,
     saveMovie,
-    onClick,
-    isInputData,
-    isShort,
-    setIsShort }) {
+    onClick
+}) {
 
     const [filterChanged, setFilterChanged] = React.useState(false);
+
+
+    const [inputValueSaveMovie, setInputValueSaveMovie] = React.useState('');
+    const [isShortSaveMobie, setIsShortSaveMovie] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     function filterMovies(searchString, saveMovie) {
         if (searchString != null) {
@@ -49,35 +51,36 @@ function SavedMovies({
                 }
                 movie._hide = false;
             });
-            
+
             if (isAnyMovieChanged) {
                 setFilterChanged(!filterChanged);
             }
-
+            setInputValueSaveMovie('')
             return;
         }
     }
 
+
     React.useEffect(() => {
-        console.log('do filter', isInputData);
-        filterMovies(isInputData, saveMovie)
-    }, [isInputData, isShort, saveMovie, filterChanged])
+        filterMovies(inputValueSaveMovie, saveMovie)
+    }, [inputValueSaveMovie, saveMovie, filterChanged])
 
     React.useEffect(() => {
         handleCheckboxActive(saveMovie)
-    }, [saveMovie])
+    }, [saveMovie, isShortSaveMobie])
 
 
     return (
         <div>
             <SearchForm
-                setInputData={setInputData}
-                isInputData={isInputData}
+                setIsLoading={setIsLoading}
+                setInputData={setInputValueSaveMovie}
+                isInputData={inputValueSaveMovie}
                 movies={saveMovie}
-                isShort={isShort}
-                setIsShort={setIsShort}
+                isShort={isShortSaveMobie}
+                setIsShort={setIsShortSaveMovie}
                 handleCheckboxActive={handleCheckboxActive} />
-            <MoviesCardList isShort={isShort} shortFilms={shortFilms} onClick={onClick}
+            <MoviesCardList isShort={isShortSaveMobie} shortFilms={shortFilms} onClick={onClick}
                 isSearchMovie={saveMovie} />
             <div className="save-movie"></div>
         </div>

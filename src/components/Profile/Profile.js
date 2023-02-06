@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
 import { CurrentContext } from "../../context/CurrentContext.js";
 
-function Profile({ handleProfileInfo, handleLogout }) {
+function Profile({ handleProfileInfo, handleLogout,  infoResult, setInfoResult }) {
 
     const currentUser = React.useContext(CurrentContext);
-    const [values, setValues] = React.useState({});
+    const [values, setValues] = React.useState(currentUser);
     const [errors, setErrors] = React.useState({});
     const [isValid, setIsValid] = React.useState(false);
     const isCompare = (currentUser.name !== values.name) || (currentUser.email !== values.email);
@@ -16,6 +16,7 @@ function Profile({ handleProfileInfo, handleLogout }) {
         setValues({ ...values, [name]: value });
         setErrors({ ...errors, [name]: target.validationMessage });
         setIsValid(target.closest("form").checkValidity());
+        setInfoResult(false)
     };
 
     function updateProfileInfo(e) {
@@ -39,7 +40,7 @@ function Profile({ handleProfileInfo, handleLogout }) {
                         required
                         minLength={3}
                         pattern="[a-zA-Zа-яА-Я\-\s]+"
-                        name='name' value={values.name || ''} onChange={handleChange} />
+                        name='name' value={values.name} onChange={handleChange} />
                     {errors?.name && (<span className="profile__span-error">Не корректное имя</span>)}
                 </div>
 
@@ -54,6 +55,7 @@ function Profile({ handleProfileInfo, handleLogout }) {
 
 
                 <div className="profile__doing">
+                    <p className={infoResult ? 'profile__result-active': 'profile__result-disabled'}>Данные успешно обновлены</p>
                     <button className={`profile__redaction-btn  ${(!isValid || !isCompare) && 'profile__redaction-btn_disabled'}`}
                         type='submit'
                         disabled={!isValid || !isCompare}

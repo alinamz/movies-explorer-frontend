@@ -59,7 +59,7 @@ function Login({ handleAuthorization}) {
                 <button className={isValid ? 'login__btn-submit' : 'register__btn-submit-disabled'} disabled={!isValid}>Войти</button>
                 <div className="login__link">
                     <p className="login__text-register">Ещё не зарегистрированы?</p>
-                    <Link className="login__link-register" to='signup'  target='_blank'>Регистрация</Link>
+                    <Link className="login__link-register" to='signup'  >Регистрация</Link>
                 </div>
             </div>
             </form>

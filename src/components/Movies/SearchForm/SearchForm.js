@@ -5,6 +5,8 @@ import React from 'react';
 
 function SearchForm({
     isInputData,
+    setIsLoading,
+    setChangeInput,
     setInputData,
     isShort,
     setIsShort,
@@ -16,31 +18,41 @@ function SearchForm({
     const isForm = `form__search ${isMargin ? "form__search_movies" : ""}`;
     const [isSpan, setIsSpan] = React.useState(false);
 
-    const [valueInput, setValue] = React.useState(isInputData)
+    const [valueInput, setValue] = React.useState(isMargin ? JSON.parse(localStorage.getItem('value')) : '')
 
     const inputRef = useRef(null);
 
-
     React.useEffect(() => {
-        JSON.parse(localStorage.getItem('value'))
+        if (isMargin) {
+            JSON.parse(localStorage.getItem('value'))
+        }
     }, [valueInput])
 
     function onClick(e) {
-        const movieSearch = inputRef.current.value
-        if (movieSearch >= 1) {
+        e.preventDefault();
+        const movieSearch = inputRef.current.value;
+        if (movieSearch === isInputData) {
+            console.log('Возвращаем тоже самое')
+        } else
+       
+            setIsLoading(true)
+            console.log('lets go')
             e.preventDefault();
-            setIsSpan(true)
-        } else {
-            e.preventDefault();
-            setInputData(valueInput)
+            setInputData(movieSearch)
             setIsSpan(false)
-            localStorage.setItem('value', JSON.stringify(movieSearch))
-        }
+            if (isMargin) {
+                localStorage.setItem('value', JSON.stringify(movieSearch))
+            }
+       
         e.preventDefault();
     }
 
+
     function onChange(e) {
         setValue(e.target.value)
+        if(isMargin) {
+        setChangeInput(true)
+        }
     }
 
     return (

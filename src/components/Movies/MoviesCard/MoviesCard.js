@@ -32,30 +32,34 @@ function MoviesCard({ saveMovie, handleDeleteSaveMovie, movie, handleAddSaveMovi
     if (isSaveMovieButton !== true) {
       setIsSaveMovieButton(true)
       SaveAddMovie(movie)
+    
     } else {
       handleDeleteSaveMovie(saveId)
       setIsSaveMovieButton(false)
+      window.localStorage.removeItem('saveMovieClick'+ id)
     }
   }
 
   function DeleteSaveMovie() {
     onClick(movie._id);
-    setIsSaveMovieButton(movie.isSaveMovieButton)
+    setIsSaveMovieButton(false);
+    window.localStorage.removeItem('saveMovieClick'+ id)
   }
 
   useEffect(() => {
     const state = window.localStorage.getItem('saveMovieClick'+ id);
-    if (state !== 'undefined') {
-      const isSaveMovieButton = JSON.parse(state)
-      if (isSaveMovieButton) {
-        setIsSaveMovieButton(isSaveMovieButton)
+      if (state !== 'undefined') {
+        const isSaveMovieButton = JSON.parse(state)
+        if (isSaveMovieButton) {
+          setIsSaveMovieButton(isSaveMovieButton)
+        }
       }
-    }
-  }, []);
+   }, []);
 
   useEffect(() => {
+    if(isSaveMovieButton !== undefined) {
     localStorage.setItem('saveMovieClick'+ id, JSON.stringify(isSaveMovieButton))
-}, [isSaveMovieButton])
+}}, [isSaveMovieButton])
  
   return (
     <li className="element">

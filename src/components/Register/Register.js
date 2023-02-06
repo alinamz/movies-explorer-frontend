@@ -83,7 +83,7 @@ function Register({handleRegist}) {
                     <button type="submit" className={isValid ? 'register__btn-submit' : 'register__btn-submit-disabled'} disabled={!isValid} >Зарегистрироваться</button>
                     <div className="register__link">
                         <p className="register__text-entry">Уже зарегистрированы?</p>
-                        <Link className="register__link-entry" target='_blank' to='/signin'>Войти</Link>
+                        <Link className="register__link-entry"  to='/signin'>Войти</Link>
                     </div>
                 </div>
             </form>

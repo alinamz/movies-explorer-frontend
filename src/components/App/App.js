@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Switch, Route, useHistory } from "react-router-dom";
+import { Router, Switch, Route, useHistory, Redirect } from "react-router-dom";
 import { CurrentContext } from "../../context/CurrentContext.js";
 import './App.css';
 import Header from '../Header/Header.js';
@@ -11,49 +11,41 @@ import Profile from '../Profile/Profile.js';
 import Register from '../Register/Register.js';
 import Login from '../Login/Login.js';
 import NotFound from '../NotFound/NotFound';
-import ApiMovies from '../../utils/MoviesApi';
 import ApiMain from "../../utils/MainApi";
 import ProtectedRoute from '../ProtectedRoute'
+import Popup from "../popup/Popup.js";
+
 
 function App() {
 
   const [currentUser, setCurrentUser] = React.useState({});
   const [burgerMenu, setBurgerMenu] = React.useState(true);
   const [displayNav, setDisplayNav] = React.useState(true);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [isShort, setIsShort] = React.useState(false);
 
-  const [shortFilms, setShortFilm] = React.useState([]);
-  const [shortSaveFilms, setSaveShortFilm] = React.useState({})
 
-  const [movies, setMovies] = React.useState([]);
+  const [isShort, setIsShort] = React.useState(localStorage.getItem('filterChekbox') ? JSON.parse(localStorage.getItem('filterChekbox')) : false);
+
+  const [shortFilms, setShortFilm] = React.useState(localStorage.getItem('shortFilm') ? JSON.parse(localStorage.getItem('shortFilm')) : []);
+  const [shortSaveFilms, setSaveShortFilm] = React.useState([])
+
+
   const [saveMovie, setSaveMovie] = React.useState([]);
 
   // константа для отправки не зарегестрированных пользователей в окно регистарции
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(true);
 
   const [isInputData, setInputData] = React.useState('');
-  const [isInputDataSaveMovie, setInputDataSaveMovie] = React.useState('')
+
+  const [infoResult, setInfoResult] = React.useState(false);
+
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const history = useHistory();
-
-  React.useEffect(() => {
-    tokenCheck();
-    if (!loggedIn) {
-      setMovies([]);
-      return;
-    }
-     ApiMain
-     .getSavedMovies()
-      .then((savedMovies) => {
-        setSaveMovie(savedMovies)
-      })
-      .catch(() => console.log('Что-то пошло не так!'))
-  }, [])
 
   function handleCheckboxActive(movies) {
     let films = movies.filter(arr => arr.duration <= 40);
     setShortFilm(films)
+    localStorage.setItem('shortFilm', JSON.stringify(films))
   }
 
   function handleSaveMovieCheckboxActive(saveMovie) {
@@ -66,12 +58,19 @@ function App() {
     setBurgerMenu(!burgerMenu)
   }
 
+  function closePopup() {
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 1000);
+  }
+
   // функция проверки токена 
   function tokenCheck() {
     const jwt = localStorage.getItem("jwt");
     ApiMain.getToken(jwt)
     if (jwt) {
-      ApiMain.getContent()
+      ApiMain
+      .getContent()
         .then((res) => {
           if (res) {
             setLoggedIn(true);
@@ -81,7 +80,9 @@ function App() {
         .catch((err) => {
           setLoggedIn(false);
           console.log(err);
-        });
+        })
+    } else {
+      setLoggedIn(false);
     }
   }
 
@@ -94,8 +95,10 @@ function App() {
       })
       .then((newDataProfile) => {
         setCurrentUser(newDataProfile)
+        setInfoResult(true)
       })
       .catch(() => console.log('Что-то пошло не так!'))
+
   }
 
   // функция регистрации
@@ -105,7 +108,18 @@ function App() {
       .then((res) => {
         console.log('Регистрация прошла успешно');
         setCurrentUser(res);
-        history.push('/signin')
+        ApiMain
+          .authorization(emailUser, passwordUser)
+          .then((data) => {
+            if (data.token) {
+              localStorage.setItem("jwt", data.token);
+              tokenCheck();
+              history.push('/movies');
+            } else {
+              return;
+            }
+          })
+        history.push('/movies')
       })
       .catch(() => console.log('Что-то пошло не так!'))
   }
@@ -121,7 +135,6 @@ function App() {
         if (data.token) {
           localStorage.setItem("jwt", data.token);
           tokenCheck();
-          setLoggedIn(true);
           history.push('/movies');
         } else {
           return;
@@ -134,18 +147,24 @@ function App() {
   function handleLogout() {
     localStorage.removeItem("jwt");
     setLoggedIn(false);
+    setSaveMovie([]);
     setCurrentUser({});
+    localStorage.clear()
     history.push('/')
   }
+
 
   // добавляем карточку в сохраненные
   function handleAddSaveMovie(movie) {
     ApiMain
       .addSaveMovies(movie)
       .then((newMovie) => {
-        setSaveMovie([newMovie, ...saveMovie]);
+        setSaveMovie([...saveMovie, newMovie]);
+        setIsOpen(true)
+        closePopup()
       })
       .catch(() => console.log('Что-то пошло не так!'))
+
   }
 
   // удаляем карточку
@@ -159,89 +178,86 @@ function App() {
       .catch(() => console.log('Что-то пошло не так!'))
   }
 
-
   React.useEffect(() => {
-    if (!loggedIn) {
-      console.log('Не авторизован, фильмы не запрашиваем');
-      setMovies([]);
-      return;
+    tokenCheck();
+    if (localStorage.getItem("jwt")) {
+      ApiMain
+        .getSavedMovies()
+        .then((savedMovies) => {
+          setSaveMovie(savedMovies)
+        })
+        .catch((err) => console.log(err));
     }
-    setIsLoading(true)
-    ApiMovies
-      .getMovies()
-      .then((movies) => {
-        setMovies(movies)
-      })
-      .catch(() => console.log('Что-то пошло не так!'))
-      .finally(() => {
-        setIsLoading(false);
-      })
-  }, [isInputData, loggedIn])
+  }, [loggedIn])
 
   return (
     <Router history={history}>
-      <CurrentContext.Provider value={currentUser} >
-        <div className="background">
-          <div className='page'>
-            <Header displayNav={displayNav} onClick={OpenMenu} burgerMenu={burgerMenu} loggedIn={loggedIn} />
-            <Switch>
-              <Route exact path="/">
-                <Main />
-                <Footer />
-              </Route>
+        <CurrentContext.Provider value={currentUser} >
+          <div className="background">
+            <div className='page'>
 
-              <ProtectedRoute loggedIn={loggedIn} path="/movies">
-                <Movies
-                  setInputData={setInputData}
-                  isShort={isShort}
-                  shortFilms={shortFilms}
-                  setIsShort={setIsShort}
-                  handleCheckboxActive={handleCheckboxActive}
-                  isInputData={isInputData}
-                  saveMovie={saveMovie}
-                  handleDeleteSaveMovie={handleDeleteSaveMovie}
-                  handleAddSaveMovie={handleAddSaveMovie}
-                  isLoading={isLoading}
-                  movies={movies}
-                 />
-                <Footer />
-              </ProtectedRoute>
+              <Header displayNav={displayNav} onClick={OpenMenu} burgerMenu={burgerMenu} loggedIn={loggedIn} />
+              <Switch>
+                <Route exact path="/">
+                  <Main />
+                  <Footer />
+                </Route>
 
-              <ProtectedRoute loggedIn={loggedIn} path='/saved-movies'>
-                <SavedMovies
-                  setInputData={setInputDataSaveMovie}
-                  handleCheckboxActive={handleSaveMovieCheckboxActive}
-                  isShort={isShort}
-                  shortFilms={shortSaveFilms}
-                  setIsShort={setIsShort}
-                  isInputData={isInputDataSaveMovie}
-                  onClick={handleDeleteSaveMovie}
-                  setSaveMovie={setSaveMovie}
-                  saveMovie={saveMovie} />
-                <Footer />
-              </ProtectedRoute>
+              
+              <ProtectedRoute loggedIn={loggedIn} path='/movies'>
+                  <Movies
+                    setInputData={setInputData}
+                    isShort={isShort}
+                    shortFilms={shortFilms}
+                    setIsShort={setIsShort}
+                    handleCheckboxActive={handleCheckboxActive}
+                    isInputData={isInputData}
+                    saveMovie={saveMovie}
+                    handleDeleteSaveMovie={handleDeleteSaveMovie}
+                    handleAddSaveMovie={handleAddSaveMovie}
+                  />
+                  <Footer />
+                </ProtectedRoute>
+           
+                <ProtectedRoute loggedIn={loggedIn} path='/saved-movies'>
+                  <SavedMovies
+                    handleCheckboxActive={handleSaveMovieCheckboxActive}
+                    shortFilms={shortSaveFilms}
+                    onClick={handleDeleteSaveMovie}
+                    setSaveMovie={setSaveMovie}
+                    saveMovie={saveMovie} />
+                  <Footer />
+                </ProtectedRoute>
 
-              <ProtectedRoute loggedIn={loggedIn} path='/profile'>
-                <Profile handleProfileInfo={handleProfileInfo} currentUser={currentUser} handleLogout={handleLogout} />
-              </ProtectedRoute>
+                <ProtectedRoute loggedIn={loggedIn} path='/profile'>
+                  <Profile setInfoResult={setInfoResult} handleProfileInfo={handleProfileInfo} currentUser={currentUser} handleLogout={handleLogout} infoResult={infoResult} />
+                  <Popup closePopup={closePopup} isOpen={isOpen} />
+                </ProtectedRoute>
 
-              <Route path='/signup'>
-                <Register handleRegist={handleRegist} />
-              </Route>
+                <Route path='/signup'>
+                { loggedIn ? 
+                 (<Redirect to='/movies' />) :  ( <Register handleRegist={handleRegist} />)}
+                 
+                </Route>
 
-              <Route path='/signin'>
-                <Login handleAuthorization={handleAuthorization} />
-              </Route>
+                <Route path='/signin'>
+                 { loggedIn ? 
+                 (<Redirect to='/movies' />) :  (<Login handleAuthorization={handleAuthorization} />)}
+                </Route>
+                 
+                
 
-              <Route path='*'>
-                <NotFound />
-              </Route>
+                <Route path='*'>
+                  <NotFound />
+                </Route>
 
-            </Switch>
+              </Switch>
 
+              <Popup isOpen={isOpen} />
+
+            </div>
           </div>
-        </div>
-      </CurrentContext.Provider>
+        </CurrentContext.Provider>
     </Router>
 
   );
