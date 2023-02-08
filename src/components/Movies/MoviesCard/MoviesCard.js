@@ -11,6 +11,16 @@ function MoviesCard({ saveMovie, handleDeleteSaveMovie, movie, handleAddSaveMovi
   const id = movie.movieId !== undefined ? movie.movieId : movie.id;
   let saveId = saveMovie?.find(item => item.id === movie.movieId)?._id;
 
+  function StorageSaveMovieById(id, isSaved) {
+    const savedMovies = localStorage.getItem('savedMovies');
+    const newSavedMovies = savedMovies == null ? {} : JSON.parse(savedMovies);
+    if (isSaved)
+      newSavedMovies[id] = true;
+    else
+      delete newSavedMovies[id];
+    localStorage.setItem('savedMovies', JSON.stringify(newSavedMovies));
+  }
+
   function SaveAddMovie() {
     handleAddSaveMovie({
       nameRU: movie.nameRU,
@@ -32,43 +42,41 @@ function MoviesCard({ saveMovie, handleDeleteSaveMovie, movie, handleAddSaveMovi
     if (isSaveMovieButton !== true) {
       setIsSaveMovieButton(true)
       SaveAddMovie(movie)
-    
     } else {
       handleDeleteSaveMovie(saveId)
       setIsSaveMovieButton(false)
-      window.localStorage.removeItem('saveMovieClick'+ id)
+      StorageSaveMovieById(id, false)
     }
   }
 
   function DeleteSaveMovie() {
     onClick(movie._id);
     setIsSaveMovieButton(false);
-    window.localStorage.removeItem('saveMovieClick'+ id)
+    StorageSaveMovieById(id, false)
   }
 
   useEffect(() => {
-    const state = window.localStorage.getItem('saveMovieClick'+ id);
-      if (state !== 'undefined') {
-        const isSaveMovieButton = JSON.parse(state)
-        if (isSaveMovieButton) {
-          setIsSaveMovieButton(isSaveMovieButton)
-        }
-      }
-   }, []);
+    const stateStr = localStorage.getItem('savedMovies');
+    const state = stateStr != null ? JSON.parse(stateStr) : null; 
+    if (state != null && state[id]) {
+      setIsSaveMovieButton(state[id]);
+    }
+  }, []);
 
   useEffect(() => {
-    if(isSaveMovieButton !== undefined) {
-    localStorage.setItem('saveMovieClick'+ id, JSON.stringify(isSaveMovieButton))
-}}, [isSaveMovieButton])
- 
+    if (isSaveMovieButton !== undefined) {
+      StorageSaveMovieById(id, isSaveMovieButton)
+    }
+  }, [isSaveMovieButton])
+
   return (
     <li className="element">
-      <a 
-       href={movie.trailerLink}
-       rel="noreferrer"
-       target="_blank"
+      <a
+        href={movie.trailerLink}
+        rel="noreferrer"
+        target="_blank"
       >
-      <img className="element__image" src={MovieButton ? allMovies : saveMovieImg} alt={movie.name} />
+        <img className="element__image" src={MovieButton ? allMovies : saveMovieImg} alt={movie.name} />
       </a>
       <div className="element__info">
         <h2 className="element__name">{movie.nameRU}</h2>
