@@ -1,5 +1,6 @@
 import React from "react";
-import { Router, Switch, Route, useHistory, Redirect } from "react-router-dom";
+import { Router, Switch, Route, Redirect } from "react-router-dom";
+import { useHistory } from "react-router";
 import { CurrentContext } from "../../context/CurrentContext.js";
 import './App.css';
 import Header from '../Header/Header.js';
@@ -17,6 +18,7 @@ import Popup from "../popup/Popup.js";
 
 
 function App() {
+  const history = useHistory();
 
   const [currentUser, setCurrentUser] = React.useState({});
   const [burgerMenu, setBurgerMenu] = React.useState(true);
@@ -39,8 +41,6 @@ function App() {
   const [infoResult, setInfoResult] = React.useState(false);
 
   const [isOpen, setIsOpen] = React.useState(false);
-
-  const history = useHistory();
 
   function handleCheckboxActive(movies) {
     let films = movies.filter(arr => arr.duration <= 40);
@@ -74,7 +74,8 @@ function App() {
         .then((res) => {
           if (res) {
             setLoggedIn(true);
-            setCurrentUser(res)
+            setCurrentUser(res);
+            history.push("/movies");
           }
         })
         .catch((err) => {
@@ -114,12 +115,10 @@ function App() {
             if (data.token) {
               localStorage.setItem("jwt", data.token);
               tokenCheck();
-              history.push('/movies');
             } else {
               return;
             }
-          })
-        history.push('/movies')
+          });
       })
       .catch(() => console.log('Что-то пошло не так!'))
   }
@@ -135,7 +134,6 @@ function App() {
         if (data.token) {
           localStorage.setItem("jwt", data.token);
           tokenCheck();
-          history.push('/movies');
         } else {
           return;
         }
@@ -202,7 +200,6 @@ function App() {
                   <Main />
                   <Footer />
                 </Route>
-
               
               <ProtectedRoute loggedIn={loggedIn} path='/movies'>
                   <Movies
