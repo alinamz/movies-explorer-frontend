@@ -9,7 +9,7 @@ function MoviesCard({ saveMovie, handleDeleteSaveMovie, movie, handleAddSaveMovi
 
   const [isSaveMovieButton, setIsSaveMovieButton] = React.useState(movie.isSaveMovieButton);
   const id = movie.movieId !== undefined ? movie.movieId : movie.id;
-  let saveId = saveMovie?.find(item => item.id === movie.movieId)?._id;
+  let saveId = saveMovie?.find(item => item.movieId === movie.id)?._id;
 
   function StorageSaveMovieById(id, isSaved) {
     const savedMovies = localStorage.getItem('savedMovies');
