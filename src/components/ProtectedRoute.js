@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 
 const ProtectedRoute = ({ loggedIn, children }) => {
   if (!loggedIn) {
-    console.log('я тут')
     return <Redirect to="/" replace />;
   }
 
