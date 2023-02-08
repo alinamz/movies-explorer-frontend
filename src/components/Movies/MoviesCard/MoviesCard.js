@@ -69,6 +69,12 @@ function MoviesCard({ saveMovie, handleDeleteSaveMovie, movie, handleAddSaveMovi
     }
   }, [isSaveMovieButton])
 
+  useEffect(() => {
+    if (saveMovie?.find(item => item.movieId === movie.id)) {
+      setIsSaveMovieButton(true)
+    }
+  }, [saveMovie])
+
   return (
     <li className="element">
       <a

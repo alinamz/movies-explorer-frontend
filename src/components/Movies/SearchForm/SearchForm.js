@@ -34,9 +34,7 @@ function SearchForm({
         if (movieSearch === isInputData) {
             console.log('Возвращаем тоже самое')
         } else
-       
             setIsLoading(true)
-            console.log('lets go')
             e.preventDefault();
             setInputData(movieSearch)
             setIsSpan(false)
