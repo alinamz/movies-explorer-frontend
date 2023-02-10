@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import BurgerNav from './BurgerNav/BurgerNav';
 
-function Header({ displayNav, onClick, burgerMenu, isLoged }) {
+function Header({ displayNav, onClick, burgerMenu, loggedIn }) {
     const location = useLocation();
     const isMainPage = location.pathname === '/';
     const isLogo = location.pathname === '/signin' || location.pathname === '/signup';
@@ -14,7 +14,7 @@ function Header({ displayNav, onClick, burgerMenu, isLoged }) {
                 (<header className="header">
                     <div className={isMainPage ? "header__black" : "header__basic"}>
                         <Link to='/' className={isLogo ? "header__logo-active" : "header__logo"}></Link>
-                        {isLoged ?
+                        {loggedIn ?
                             (<BurgerNav displayNav={displayNav} onClick={onClick} burgerMenu={burgerMenu}></BurgerNav>) :
                             (<div className={isMainPage ? "header__links" : "header__links-disabled"}>
                                 <Link className="header__link header__link_register" to='/signup' >Регистрация</Link>

@@ -1,0 +1,31 @@
+.popup__opened {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #282828;
+    border-radius: 25%;
+    width: 298px;
+    height: 100px;
+    border: 1px solid #FFFFFF;
+}
+
+.popup__text {
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.popup__dis {
+    display: none;
+}
+
+.popup__close {
+    outline: none;
+    margin-top: 20px;
+}

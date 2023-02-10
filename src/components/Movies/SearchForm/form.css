@@ -111,3 +111,21 @@
         height: 56px;
     }
 }
+
+.form__error {
+    color: #EE3465;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    width: 396px;
+    padding-top: 10px;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+    top: 72px;
+}
+
+.form__error-disabled {
+    display: none;
+}

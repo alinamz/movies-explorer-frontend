@@ -35,3 +35,7 @@
     background-color: #202020;
 
 }
+
+.add-movie__button-disabled{
+    display: none;
+}

@@ -20,6 +20,18 @@
     }
 }
 
+.profile__result-active{
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #EE3465;
+    text-align: center;
+}
+
+.profile__result-disabled {
+    display: none;
+}
+
 .profile__doing {
     display: flex;
     flex-direction: column;
@@ -101,16 +113,16 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
+    position: relative;
+    padding-top: 17px;
 }
 
 .profile__info:first-child {
     border-bottom: 1px solid #424242;
     padding-bottom: 16px;
+    padding-top: 0;
 }
 
-.profile__info:last-child {
-    padding-top: 17px;
-}
 
 .profile__name {
     font-size: 11px;
@@ -172,4 +184,18 @@
         margin-top: 70px;
         margin-bottom: 80px;
     }
+}
+
+.profile__redaction-btn_disabled{
+    opacity: 0.8;
+}
+
+.profile__span-error{
+    color: #EE3465;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    position: absolute;
+    top: 30px;
+    right: 2px;
 }

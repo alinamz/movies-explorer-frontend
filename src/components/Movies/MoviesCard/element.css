@@ -11,11 +11,15 @@
     display: none;
 }
 
-.element__button input:checked~span {
+.element__button_active .element__input_active~span {
     background-color: #2BE080;
 }
 
-.element__button input~span {
+.element__button_disabled .element__input_disabled~span {
+    background-color: #313131;
+}
+
+.element__button .element__input ~span {
     display: inline-block;
     position: absolute;
     top: 14px;
@@ -25,7 +29,7 @@
     border-style: solid;
     border-color: #FFFFFF;
     border-radius: 50%;
-    background-color: #313131;
+   
 }
 
 .element__delete {

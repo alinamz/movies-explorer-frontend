@@ -1,3 +1,11 @@
+.no-elements {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+}
+
 .elements {
     width: calc(100% - 140px);
     margin: auto;
